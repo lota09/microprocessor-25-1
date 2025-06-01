@@ -18,15 +18,15 @@ _main
         BEQ     End               ; If zero, end program
 
 LoopPixel
-R
+
         LDRB    R3, [R0]          ; Load Red value
         RSB     R3, R3, #255      ; Invert Red (255 - R)
         STRB    R3, [R0]          ; Store inverted Red
-G
+
         LDRB    R3, [R0, #1]      ; Load Green value
         RSB     R3, R3, #255      ; Invert Green (255 - G)
         STRB    R3, [R0, #1]      ; Store inverted Green
-B
+
         LDRB    R3, [R0, #2]      ; Load Blue value
         RSB     R3, R3, #255      ; Invert Blue (255 - B)
         STRB    R3, [R0, #2]      ; Store inverted Blue

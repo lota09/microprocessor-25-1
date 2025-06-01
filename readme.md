@@ -24,6 +24,6 @@ result          : F8 03, 3A 04, 59 07, 45 01, ... , BD 01, 12 07, 5A 06, AA 04
 
 #project 3 (relocation)
 relocation      : 3.20 ms
-total           : 7.36 ms
-img processing  : 4.16 ms
-result          : 하위 128개 픽셀 잘못된 결과
+total           : 5.38 ms
+img processing  : 2.18 ms
+result          : F8 03, 3A 04, 59 07, 45 01, ... , BD 01, 12 07, 5A 06, AA 04

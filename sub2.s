@@ -10,33 +10,32 @@
         EXPORT _main
 
 _main
-        LDR     R0, =0x40000036   
-        MOV     R1, #9600          
-        MOV     R2, #255          
+        LDR     R0, =0x40000036   ; Load base address of RGBA pixel data
+        MOV     R1, #9600         ; Number of pixels
+        MOV     R2, #255          ; Constant for inversion (255 - value)
 
-        CMP     R1, #0
-        BEQ     End
+        CMP     R1, #0            ; Check if there are no pixels
+        BEQ     End               ; If zero, end program
 
 LoopPixel
-R
-        LDRB    R3, [R0]
-        RSB     R3, R3, #255
-        STRB    R3, [R0]
-G
-        LDRB    R3, [R0, #1]
-        RSB     R3, R3, #255
-        STRB    R3, [R0, #1]
-B
-        LDRB    R3, [R0, #2]
-        RSB     R3, R3, #255
-        STRB    R3, [R0, #2]
 
-        
-        ADD     R0, R0, #4         
-        SUBS    R1, R1, #1
-        BNE     LoopPixel
+        LDRB    R3, [R0]          ; Load Red value
+        RSB     R3, R3, #255      ; Invert Red (255 - R)
+        STRB    R3, [R0]          ; Store inverted Red
+
+        LDRB    R3, [R0, #1]      ; Load Green value
+        RSB     R3, R3, #255      ; Invert Green (255 - G)
+        STRB    R3, [R0, #1]      ; Store inverted Green
+
+        LDRB    R3, [R0, #2]      ; Load Blue value
+        RSB     R3, R3, #255      ; Invert Blue (255 - B)
+        STRB    R3, [R0, #2]      ; Store inverted Blue
+
+        ADD     R0, R0, #4        ; Move to next pixel (skip alpha)
+        SUBS    R1, R1, #1        ; Decrement pixel count
+        BNE     LoopPixel         ; Repeat if pixels remain
 
 End
-        B       End
+        B       End              ; Infinite loop to end program
 
         END

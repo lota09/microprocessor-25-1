@@ -15,26 +15,20 @@ _main
         MOV     R2, #9600            ; Number of pixels
 
 LoopPixel
-        ; ---- Calculate 3 * R ----
-        LDRB    R3, [R0]             ; Load Red value
-        MOV     R4, R3
-        ADD     R3, R3, R4           ; 2 * R
-        ADD     R3, R3, R4           ; 3 * R
-
-        ; ---- Add 6 * G ----
-        LDRB    R4, [R0, #1]         ; Load Green value
-        MOV     R5, R4
-        ADD     R4, R4, R5           ; 2 * G
-        ADD     R4, R4, R5           ; 3 * G
-        ADD     R4, R4, R5           ; 4 * G
-        ADD     R4, R4, R5           ; 5 * G
-        ADD     R4, R4, R5           ; 6 * G
-        ADD     R3, R3, R4           ; Add 6 * G to result
-
-        ; ---- Add B ----
+        ; ---- Load B and initialize result ----
         LDRB    R4, [R0, #2]         ; Load Blue value
-        ADD     R3, R3, R4           ; Final Gray = 3R + 6G + B
+        MOV     R3, R4               ; Initialize R3 = B
 
+        ; ---- Multiply-accumulate: R * 3 ----
+        LDRB    R4, [R0]             ; Load Red value
+        MOV     R5, #3
+        MLA     R3, R4, R5, R3       ; R3 = R4 * 3 + R3
+
+        ; ---- Multiply-accumulate: G * 6 ----
+        LDRB    R4, [R0, #1]         ; Load Green value
+        MOV     R5, #6
+        MLA     R3, R4, R5, R3       ; R3 = R4 * 6 + R3
+        
         ; ---- Store grayscale result ----
         STRH    R3, [R1]             ; Store 16-bit grayscale value
         ADD     R0, R0, #4           ; Move to next RGBA pixel (skip Alpha)

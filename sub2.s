@@ -14,9 +14,6 @@ _main
         MOV     R1, #9600         ; Number of pixels
         MOV     R2, #255          ; Constant for inversion (255 - value)
 
-        CMP     R1, #0            ; Check if there are no pixels
-        BEQ     End               ; If zero, end program
-
 LoopPixel
 
         LDRB    R3, [R0]          ; Load Red value

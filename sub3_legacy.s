@@ -7,9 +7,6 @@ _main
         LDR     R1, =0x40100000      
         MOV     R2, #9600           
 
-        CMP     R2, #0
-        BEQ     End
-
 LoopPixel
         
         LDRB    R3, [R0]            

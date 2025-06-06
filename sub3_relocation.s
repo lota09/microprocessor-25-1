@@ -42,8 +42,7 @@ RelocateLoop
         LDR     r3, =0x40110000     ; Address to store grayscale result
         MOV     r4, #9600
 
-GrayscaleLoop
-        
+       
 
 LoopPixel
         ;load 8 pixel of B

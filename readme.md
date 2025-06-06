@@ -16,6 +16,12 @@ result          : 12 C3
 total           : 3.68 ms
 result          : 87 A1 A3 BD, 88 8C DC 59, ... , 9D 45 27 50, DF 4B ED 8B
 
+#project 2 (optimize)
+relocation      : 2.24 ms
+total           : 3.312 ms
+img processing  : 1.072 ms
+result          : 87 A1 A3 BD, 88 8C DC 59, ... , 9D 45 27 50, DF 4B ED 8B
+
 #project 2 (relocation)
 relocation      : 3.20 ms
 total           : 4.96 ms

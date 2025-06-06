@@ -1,69 +1,124 @@
-;**********************************************************************
-;  - Project          : Project - ARM Code for Image Converting
-;  - File name        : sub1_relocation.s
-;  - Description      : Red pixel counter (memory relocation)
-;  - Owner            : Microprocessor Application team 4
-;  - Revision history : 1) 2025.03.27 : Initial release
-;**********************************************************************
         AREA RESET, CODE, READONLY
         ENTRY
         EXPORT _main
 
 _main
-        ; Step 1. Extract Red channel from RGBA and relocate
-        LDR     r0, =0x40000036      ; Start address of RGBA data
-        LDR     r1, =0x40110000      ; Red channel output address (contiguous memory area)
-        MOV     r2, #0               ; Counter initialization
+        ; Step 1: Extract red bytes from RGBA and store
+        LDR     r0, =0x40000036      ; RGBA source
+        LDR     r1, =0x40110000      ; Red destination
+        MOV     r2, #0
 
 RelocateLoop
-        LDRB    r3, [r0]             ; Load Red byte
-        STRB    r3, [r1]             ; Store Red byte
-        ADD     r0, r0, #4           ; Move to next pixel (skip G, B, A)
-        ADD     r1, r1, #1           ; Move output pointer
-        ADD     r2, r2, #1           ; Increment counter
-        CMP     r2, #9600            ; Check if all pixels processed
+        LDRB    r3, [r0]             ; Load red byte
+        STRB    r3, [r1]             ; Store red byte
+        ADD     r0, r0, #4           ; Next pixel
+        ADD     r1, r1, #1
+        ADD     r2, r2, #1
+        CMP     r2, #9600
         BLT     RelocateLoop
 
-        ; Step 2. Count Red values >= 128
-        LDR     r0, =0x40110000      ; Red channel data start
-        MOV     r1, #0               ; Loop counter
-        MOV     r2, #0               ; Count of red pixels >= 128
+        ; Step 2: Count red bytes with MSB = 1
+        LDR     r0, =0x40110000
+        MOV     r1, #0               ; Offset
+        MOV     r2, #0               ; Count
 
 CountLoop
-        ; Load 8 Red values in one batch
-        LDMIA   r0!, {r3-r10}
+        LDMIA   r0!, {r3-r10}        ; Load 8 words (32 bytes)
 
-        ; Compare each value to 128 and conditionally increment count
-        CMP     r3, #128
-        ADDGE   r2, r2, #1
+        ; Check MSB of each byte (bit 7 of each byte in r3–r10)
+        TST     r3, #0x00000080     ; Byte 0
+        ADDNE   r2, r2, #1
+        TST     r3, #0x00008000     ; Byte 2
+        ADDNE   r2, r2, #1
+        TST     r3, #0x00800000     ; Byte 3
+        ADDNE   r2, r2, #1
+        TST     r3, #0x80000000     ; Byte 4
+        ADDNE   r2, r2, #1
 
-        CMP     r4, #128
-        ADDGE   r2, r2, #1
+        ; r4
+		
+        TST     r4, #0x00000080
+        ADDNE   r2, r2, #1
+        TST     r4, #0x00008000
+        ADDNE   r2, r2, #1
+        TST     r4, #0x00800000
+        ADDNE   r2, r2, #1
+        TST     r4, #0x80000000
+        ADDNE   r2, r2, #1
+		
+		;r5
+		
+        TST     r5, #0x00000080
+        ADDNE   r2, r2, #1
+        TST     r5, #0x00008000
+        ADDNE   r2, r2, #1
+        TST     r5, #0x00800000
+        ADDNE   r2, r2, #1
+        TST     r5, #0x80000000
+        ADDNE   r2, r2, #1
+		
+		;r6
 
-        CMP     r5, #128
-        ADDGE   r2, r2, #1
+        TST     r6, #0x00000080
+        ADDNE   r2, r2, #1
+        TST     r6, #0x00008000
+        ADDNE   r2, r2, #1
+        TST     r6, #0x00800000
+        ADDNE   r2, r2, #1
+        TST     r6, #0x80000000
+        ADDNE   r2, r2, #1
+		
+		;r7
+		
+        TST     r7, #0x00000080
+        ADDNE   r2, r2, #1
+        TST     r7, #0x00008000
+        ADDNE   r2, r2, #1
+        TST     r7, #0x00800000
+        ADDNE   r2, r2, #1
+        TST     r7, #0x80000000
+        ADDNE   r2, r2, #1
+		
+		;r8
 
-        CMP     r6, #128
-        ADDGE   r2, r2, #1
+        TST     r8, #0x00000080
+        ADDNE   r2, r2, #1
+        TST     r8, #0x00008000
+        ADDNE   r2, r2, #1
+        TST     r8, #0x00800000
+        ADDNE   r2, r2, #1
+        TST     r8, #0x80000000
+        ADDNE   r2, r2, #1
+		
+		;r9
 
-        CMP     r7, #128
-        ADDGE   r2, r2, #1
+        TST     r9, #0x00000080
+        ADDNE   r2, r2, #1
+        TST     r9, #0x00008000
+        ADDNE   r2, r2, #1
+        TST     r9, #0x00800000
+        ADDNE   r2, r2, #1
+        TST     r9, #0x80000000
+        ADDNE   r2, r2, #1
+		
+		r10;
 
-        CMP     r8, #128
-        ADDGE   r2, r2, #1
+        TST     r10, #0x00000080
+        ADDNE   r2, r2, #1
+        TST     r10, #0x00008000
+        ADDNE   r2, r2, #1
+        TST     r10, #0x00800000
+        ADDNE   r2, r2, #1
+        TST     r10, #0x80000000
+        ADDNE   r2, r2, #1
+		
+		; add pixel counter
 
-        CMP     r9, #128
-        ADDGE   r2, r2, #1
-
-        CMP     r10, #128
-        ADDGE   r2, r2, #1
-
-        ; Update processed pixel count
-        ADD     r1, r1, #8
+        ADD     r1, r1, #32
         CMP     r1, #9600
         BLT     CountLoop
 
-        ; Step 3. Store the final count to memory-mapped location
+        ; Step 3: Save result
         LDR     r4, =0x4012FFF0
         STR     r2, [r4]
 

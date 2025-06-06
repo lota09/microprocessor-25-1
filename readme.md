@@ -1,12 +1,16 @@
-#project 1
+#project 1 (legacy)
 total           : 2.08 ms
-result          : 00 00 12 CB
+result          : 00 00 12 C3
+
+#project 1 (new)
+total           : 1.44 ms
+result          : 00 00 12 C3
 
 #project 1 (relocation)
-relocation      : 1.92 ms
-total           : 2.54 ms
-img processing  : 0.62 ms
-result          : 00 00 12 CB
+relocation : 1.920 ms
+total           : 2.315 ms
+img processing  : 0.395 ms
+result          : 12 C3
 
 #project 2
 total           : 3.68 ms
@@ -24,6 +28,6 @@ result          : F8 03, 3A 04, 59 07, 45 01, ... , BD 01, 12 07, 5A 06, AA 04
 
 #project 3 (relocation)
 relocation      : 3.20 ms
-total           : 7.36 ms
-img processing  : 4.16 ms
-result          : 하위 128개 픽셀 잘못된 결과
+total           : 5.38 ms
+img processing  : 2.18 ms
+result          : F8 03, 3A 04, 59 07, 45 01, ... , BD 01, 12 07, 5A 06, AA 04

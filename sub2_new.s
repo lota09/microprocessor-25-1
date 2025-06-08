@@ -32,9 +32,9 @@ InvertLoop
         LDMIA r0, {r3-r12}            ; Load 10 pixels from memory (RGBA format, 4 bytes each)
 
         ; pixel 1 (r3): invert RGB bits, keep A unchanged
-        AND r2, r3, #0xFF000000              ; Save alpha value
+        AND r2, r3, #0xFF000000        ; Save alpha value
         MVN r3, r3                     ; Invert all bits
-        BIC r3, r3, #0xFF000000              ; Clear lower 8 bits (alpha)
+        BIC r3, r3, #0xFF000000        ; Clear lower 8 bits (alpha)
         ORR r3, r3, r2                 ; Restore original alpha
 
         ; pixel 2 (r4)

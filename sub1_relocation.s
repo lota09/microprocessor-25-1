@@ -101,7 +101,7 @@ CountLoop
         TST     r9, #0x80000000
         ADDNE   r2, r2, #1
 		
-		r10;
+		;r10
 
         TST     r10, #0x00000080
         ADDNE   r2, r2, #1

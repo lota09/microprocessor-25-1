@@ -41,3 +41,26 @@ relocation      : 3.20 ms
 total           : 5.38 ms
 img processing  : 2.18 ms
 result          : F8 03, 3A 04, 59 07, 45 01, ... , BD 01, 12 07, 5A 06, AA 04
+
+======= NEO RELOCATION =======
+
+#sub1
+original total : 1.44 ms
+
+relocation 832.067 us
+total 1.227ms
+process 0.395 ms
+
+#sub2
+original total : 3.68 ms
+
+relocation 1.744 ms
+total 2.816 ms
+process 1.072 ms
+
+#sub3
+original total : 3.52 ms
+
+relocation 2.56 ms
+total 4.740 ms
+process 2.18 ms

@@ -1,7 +1,7 @@
 ;**********************************************************************
 ;  - Project          : Project - ARM Code for Image Converting
 ;  - File name        : relocation_LDRB.s
-;  - Description      : optimized relocation using LDRH (2.56 ms)
+;  - Description      : optimized relocation using LDRH (2.4 ms)
 ;  - Owner            : Microprocessor Application team 4
 ;  - Revision history : 1) 2025.07.19 : Initial release
 ;**********************************************************************
@@ -173,7 +173,7 @@ RelocateLoop
 
         ADD     r1, r1, #12              ; pixel count += 12
         CMP     r1, #9600
-        BNE     RelocateLoop
+        BLT     RelocateLoop
 
 End
         B       End

@@ -7,7 +7,7 @@ total           : 1.44 ms
 result          : 00 00 12 C3
 
 #project 1 (relocation)
-relocation : 1.920 ms
+relocation      : 1.920 ms
 total           : 2.315 ms
 img processing  : 0.395 ms
 result          : 12 C3

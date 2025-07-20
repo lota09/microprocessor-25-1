@@ -29,7 +29,8 @@ RelocateLoop
         MOV     R1, #9600         ; Number of pixels
 
 InvertLoop
-        LDMIA r0, {r3-r12}            ; Load 10 pixels from memory (RGBA format, 4 bytes each)
+        ; Load 10 pixels from memory (RGBA format, 4 bytes each)
+        LDMIA r0, {r3-r12}            
 
         ; pixel 1 (r3): invert RGB bits, keep A unchanged
         AND r2, r3, #0xFF000000        ; Save alpha value
